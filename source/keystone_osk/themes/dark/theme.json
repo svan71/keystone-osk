@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "dark",
+  "name": "Dark",
+  "inherits": null,
+  "colors": {
+    "panel_top": "#1e1f29",
+    "panel_bottom": "#111217",
+    "panel_border": "#f8f8f2",
+    "text": "#f8f8f2",
+    "key_normal_top": "#21222c",
+    "key_normal_bottom": "#15161d",
+    "key_normal_border": "#343746",
+    "key_hover_top": "#2a2d3a",
+    "key_hover_bottom": "#191a21",
+    "key_hover_border": "#f8f8f2",
+    "key_locked_top": "#343746",
+    "key_locked_bottom": "#21222c",
+    "key_locked_border": "#bd93f9",
+    "control_background": "#21222c",
+    "control_border": "#44475a",
+    "suggestion_background": "#2a2d3a",
+    "suggestion_border": "#f8f8f2",
+    "menu_background": "#21222c",
+    "menu_selected_background": "#343746",
+    "restore_icon_foreground": "#44475a",
+    "restore_icon_background": "#17192399"
+  },
+  "font": {
+    "family": "Noto Sans",
+    "size": 13
+  },
+  "spacing": {
+    "panel_padding": 18,
+    "key_gap": 8,
+    "menu_padding": 4
+  },
+  "corner_radius": {
+    "panel": 16,
+    "key": 9,
+    "menu": 8
+  },
+  "border_width": {
+    "panel": 1,
+    "key": 3,
+    "key_locked": 4
+  }
+}

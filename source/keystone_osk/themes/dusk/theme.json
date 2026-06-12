@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "dusk",
+  "name": "Dusk",
+  "inherits": null,
+  "colors": {
+    "panel_top": "#1e1e2e",
+    "panel_bottom": "#11111b",
+    "panel_border": "#cdd6f4",
+    "text": "#cdd6f4",
+    "key_normal_top": "#313244",
+    "key_normal_bottom": "#181825",
+    "key_normal_border": "#45475a",
+    "key_hover_top": "#45475a",
+    "key_hover_bottom": "#1e1e2e",
+    "key_hover_border": "#cdd6f4",
+    "key_locked_top": "#45475a",
+    "key_locked_bottom": "#313244",
+    "key_locked_border": "#89b4fa",
+    "control_background": "#313244",
+    "control_border": "#585b70",
+    "suggestion_background": "#45475a",
+    "suggestion_border": "#cdd6f4",
+    "menu_background": "#313244",
+    "menu_selected_background": "#45475a",
+    "restore_icon_foreground": "#cdd6f4",
+    "restore_icon_background": "#1e1e2eb3"
+  },
+  "font": {
+    "family": "Noto Sans",
+    "size": 13
+  },
+  "spacing": {
+    "panel_padding": 18,
+    "key_gap": 8,
+    "menu_padding": 4
+  },
+  "corner_radius": {
+    "panel": 16,
+    "key": 9,
+    "menu": 8
+  },
+  "border_width": {
+    "panel": 1,
+    "key": 3,
+    "key_locked": 4
+  }
+}

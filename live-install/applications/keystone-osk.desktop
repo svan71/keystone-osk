@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Keystone
+GenericName=On-Screen Keyboard
+Comment=Practical on-screen keyboard for Linux desktops
+Exec=keystone-osk
+TryExec=keystone-osk
+Icon=keystone
+Terminal=false
+Categories=Utility;Accessibility;
+StartupNotify=false

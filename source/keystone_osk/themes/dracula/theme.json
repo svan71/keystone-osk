@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "dracula",
+  "name": "Dracula",
+  "inherits": null,
+  "colors": {
+    "panel_top": "#282a36",
+    "panel_bottom": "#282a36",
+    "panel_border": "#f8f8f2",
+    "text": "#f8f8f2",
+    "key_normal_top": "#2b2d39",
+    "key_normal_bottom": "#282a36",
+    "key_normal_border": "#5f4b78",
+    "key_hover_top": "#343746",
+    "key_hover_bottom": "#2b2d39",
+    "key_hover_border": "#f8f8f2",
+    "key_locked_top": "#44475a",
+    "key_locked_bottom": "#343746",
+    "key_locked_border": "#bd93f9",
+    "control_background": "#282a36",
+    "control_border": "#6a5487",
+    "suggestion_background": "#44475a",
+    "suggestion_border": "#f8f8f2",
+    "menu_background": "#282a36",
+    "menu_selected_background": "#44475a",
+    "restore_icon_foreground": "#bd93f9",
+    "restore_icon_background": "#282a36b3"
+  },
+  "font": {
+    "family": "Noto Sans",
+    "size": 13
+  },
+  "spacing": {
+    "panel_padding": 18,
+    "key_gap": 8,
+    "menu_padding": 4
+  },
+  "corner_radius": {
+    "panel": 16,
+    "key": 9,
+    "menu": 8
+  },
+  "border_width": {
+    "panel": 1,
+    "key": 3,
+    "key_locked": 4
+  }
+}

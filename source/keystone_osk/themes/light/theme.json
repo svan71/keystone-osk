@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "light",
+  "name": "Light",
+  "inherits": null,
+  "colors": {
+    "panel_top": "#ffffff",
+    "panel_bottom": "#eeeeee",
+    "panel_border": "#000000",
+    "text": "#000000",
+    "key_normal_top": "#ffffff",
+    "key_normal_bottom": "#f2f2f2",
+    "key_normal_border": "#999999",
+    "key_hover_top": "#f6f6f6",
+    "key_hover_bottom": "#e6e6e6",
+    "key_hover_border": "#000000",
+    "key_locked_top": "#e8e8e8",
+    "key_locked_bottom": "#d8d8d8",
+    "key_locked_border": "#000000",
+    "control_background": "#ffffff",
+    "control_border": "#777777",
+    "suggestion_background": "#ffffff",
+    "suggestion_border": "#000000",
+    "menu_background": "#ffffff",
+    "menu_selected_background": "#e9e9e9",
+    "restore_icon_foreground": "#000000",
+    "restore_icon_background": "#ffffffd2"
+  },
+  "font": {
+    "family": "Noto Sans",
+    "size": 13
+  },
+  "spacing": {
+    "panel_padding": 18,
+    "key_gap": 8,
+    "menu_padding": 4
+  },
+  "corner_radius": {
+    "panel": 16,
+    "key": 9,
+    "menu": 8
+  },
+  "border_width": {
+    "panel": 1,
+    "key": 3,
+    "key_locked": 4
+  }
+}

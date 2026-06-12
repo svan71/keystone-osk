@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keystone-osk"
+version = "0.1.0"
+description = "Practical on-screen keyboard for Linux desktops"
+authors = [{ name = "keystoneosk" }]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+  "PySide6",
+]
+
+[dependency-groups]
+dev = [
+  "pytest",
+]
+
+[project.scripts]
+keystone-osk = "keystone_osk.app:main"
+
+[tool.setuptools.package-data]
+keystone_osk = ["data/*.txt", "data/*.svg", "data/README.md", "themes/*/theme.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
