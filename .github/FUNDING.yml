@@ -1,0 +1,4 @@
+# Renders the "Sponsor this project" panel in the GitHub sidebar.
+# Add more platforms as needed, e.g. buy_me_a_coffee: <username>
+# or custom: ["https://example.com/donate"]
+ko_fi: keystoneosk
