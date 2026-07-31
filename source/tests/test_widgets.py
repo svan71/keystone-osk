@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from qt_window_test_helpers import *
 
 def test_outside_click_clears_one_shot_modifiers_and_caps(app) -> None:

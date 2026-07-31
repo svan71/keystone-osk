@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Tests for snippets menu error/warning actions and 'Restore example snippets…' reset."""
 from __future__ import annotations
 

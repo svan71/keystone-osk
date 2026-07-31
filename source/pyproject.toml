@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "keystone-osk"
-version = "0.1.0"
+version = "0.9.0"
 description = "Practical on-screen keyboard for Linux desktops"
 authors = [{ name = "keystoneosk" }]
 readme = "README.md"

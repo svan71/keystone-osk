@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 keystoneosk -->
+<component type="desktop-application">
+  <id>io.github.svan71.keystone-osk</id>
+
+  <name>Keystone</name>
+  <summary>On-screen keyboard</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <developer id="io.github.svan71">
+    <name>keystoneosk</name>
+  </developer>
+
+  <description>
+    <p>
+      Keystone is an on-screen keyboard for desktop Linux. It floats above your
+      other windows and types into whichever application has focus, so it works
+      with touchscreens, pen input, or a mouse when a physical keyboard is not
+      available or not practical.
+    </p>
+    <p>
+      It is built for everyday use rather than kiosk duty: the window remembers
+      its size and position, it can shrink to a compact layout or expand to a
+      full keyboard with a numeric keypad, and it stays out of the way in the
+      system tray until you need it.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Compact and full keyboard layouts, switchable at runtime</li>
+      <li>Word completion with a built-in dictionary</li>
+      <li>Accented and special characters via long-press</li>
+      <li>User-defined text snippets</li>
+      <li>Themes, including several dark variants, with support for custom theme packs</li>
+      <li>Tray icon with show, hide, and toggle controls</li>
+      <li>Command-line control of a running instance for scripting and shortcuts</li>
+    </ul>
+    <p>
+      Keystone runs on GNOME and KDE Plasma, under both X11 and Wayland.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">keystone-osk.desktop</launchable>
+
+  <provides>
+    <binary>keystone-osk</binary>
+  </provides>
+
+  <categories>
+    <category>Utility</category>
+    <category>Accessibility</category>
+  </categories>
+
+  <keywords>
+    <keyword>keyboard</keyword>
+    <keyword>osk</keyword>
+    <keyword>virtual keyboard</keyword>
+    <keyword>touchscreen</keyword>
+    <keyword>accessibility</keyword>
+  </keywords>
+
+  <url type="homepage">https://github.com/svan71/keystone-osk</url>
+  <url type="bugtracker">https://github.com/svan71/keystone-osk/issues</url>
+  <url type="donation">https://ko-fi.com/keystoneosk</url>
+  <url type="vcs-browser">https://github.com/svan71/keystone-osk</url>
+
+  <screenshots>
+    <screenshot type="default" xml:lang="en">
+      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.0/previews/keystone-osk-app-preview.png</image>
+      <caption>The full keyboard layout in a dark theme</caption>
+    </screenshot>
+    <screenshot xml:lang="en">
+      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.0/previews/keystone-osk-small-preview.png</image>
+      <caption>The compact layout, sized for a corner of the screen</caption>
+    </screenshot>
+  </screenshots>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#c9d4f5</color>
+    <color type="primary" scheme_preference="dark">#2b3357</color>
+  </branding>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="0.9.0" date="2026-07-31" type="development">
+      <description>
+        <p>
+          First public beta. Keystone is feature-complete for everyday typing but
+          is still under active development, and settings or defaults may change
+          before the 1.0 release.
+        </p>
+      </description>
+    </release>
+  </releases>
+</component>

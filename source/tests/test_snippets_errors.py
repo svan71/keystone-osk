@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Tests for load_snippets_with_errors, reset_snippets_file, and SNIPPETS_TEMPLATE."""
 from __future__ import annotations
 

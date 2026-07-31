@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Pure tests for keystone_osk.autostart — no PySide6 required."""
 
 from __future__ import annotations

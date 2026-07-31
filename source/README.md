@@ -19,8 +19,9 @@ keystone-osk --status
 keystone-osk --list-themes
 ```
 
-Keystone prefers Qt's native Wayland platform when `WAYLAND_DISPLAY` is present.
-Set `KEYSTONE_OSK_QT_PLATFORM=xcb` to use the XWayland/xcb fallback. GNOME and
+Keystone runs on Qt's `xcb` platform by default, including on Wayland sessions,
+where it runs through XWayland. Set `KEYSTONE_OSK_QT_PLATFORM=wayland` to opt
+into Qt's native Wayland platform instead. GNOME and
 KDE behavior profiles are supported; tray behavior depends on the desktop shell,
 and Keystone keeps its restore icon as the fallback when a real tray is
 unavailable.

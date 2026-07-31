@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """XDG autostart support — pure (no PySide6).
 
 Toggling on writes ~/.config/autostart/keystone-osk.desktop (respecting

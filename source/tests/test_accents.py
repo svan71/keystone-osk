@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from keystone_osk.accents import ACCENT_VARIANTS, accent_variants_for, has_accents
 
 

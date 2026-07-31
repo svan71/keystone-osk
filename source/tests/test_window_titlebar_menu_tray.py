@@ -1,5 +1,10 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from qt_window_test_helpers import *
 from PySide6.QtWidgets import QLabel, QPushButton
+
+import keystone_osk
 
 
 def test_visible_keyboard_menu_contains_core_actions(app) -> None:
@@ -292,7 +297,7 @@ def test_about_dialog_contains_release_identity_and_links(app) -> None:
 
     assert dialog.windowTitle() == "About Keystone"
     assert "Keystone" in label_text
-    assert "Version 0.1.0" in label_text
+    assert f"Version {keystone_osk.__version__}" in label_text
     assert "A practical on-screen keyboard for Linux desktops." in label_text
     assert "GPL-3.0-or-later" in label_text
     assert "Free and source-available. Donations help development." in label_text

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import subprocess  # noqa: F401  (re-exported for tests)
 from pathlib import Path  # noqa: F401  (re-exported for tests)
 

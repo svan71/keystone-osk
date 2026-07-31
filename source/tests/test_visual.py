@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import pytest
 
 pytest.importorskip("PySide6.QtCore", exc_type=ImportError)

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Qt offscreen tests for the Load on startup menu action and --start-hidden."""
 
 from qt_window_test_helpers import *

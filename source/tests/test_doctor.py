@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from logic_test_helpers import *
 
 def test_doctor_report_summarizes_runtime_checks(monkeypatch, tmp_path) -> None:

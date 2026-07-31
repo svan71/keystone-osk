@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from qt_window_test_helpers import *
 
 def test_color_scheme_from_portal_value_treats_default_as_light() -> None:

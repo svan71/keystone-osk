@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """PySide6-free window-state I/O.
 
 All persisted-state reading and writing that does NOT need Qt lives here: the

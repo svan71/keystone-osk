@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from __future__ import annotations
 
 import queue
@@ -241,7 +244,7 @@ class YdotoolBackend:
             return
         try:
             self._runner(ydotool_key_args("NumLock"), check=True)
-        except (FileNotFoundError, subprocess.CalledProcessError):
+        except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
             pass
 
 

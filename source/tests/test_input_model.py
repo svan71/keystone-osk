@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 keystoneosk
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from qt_window_test_helpers import *
 
 def test_numpad_number_sends_number_when_num_is_locked(app) -> None:
