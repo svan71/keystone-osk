@@ -24,6 +24,9 @@ def test_doctor_report_summarizes_runtime_checks(monkeypatch, tmp_path) -> None:
         uinput_checker=lambda: ("OK", "/dev/uinput writable"),
         tray_checker=lambda: "yes",
         icon_resolver=lambda theme: "theme:keystone-status-dracula-symbolic",
+        # Injected: the desktop above is GNOME, so the real checker would shell
+        # out to gnome-extensions and make this test depend on the host.
+        gnome_extension_checker=lambda values: ("OK", "appindicatorsupport@rgcjonas.gmail.com"),
     )
 
     assert any(line.startswith("INFO version: ") for line in report)
@@ -142,3 +145,63 @@ def test_doctor_reports_numpad_mode_and_theme_source(tmp_path) -> None:
     )
     assert any(line.startswith("INFO numpad-mode:") for line in lines)
     assert any(line.startswith("INFO theme-source:") for line in lines)
+
+
+def test_gnome_tray_extension_status_accepts_any_appindicator_fork() -> None:
+    # rgcjonas' original and Ubuntu's fork ship under different UUIDs; either
+    # one puts the tray icon in the top bar, so both must count.
+    assert doctor_module.gnome_tray_extension_status(
+        {"XDG_CURRENT_DESKTOP": "GNOME"},
+        lambda: ["appindicatorsupport@rgcjonas.gmail.com"],
+    ) == ("OK", "appindicatorsupport@rgcjonas.gmail.com")
+    assert doctor_module.gnome_tray_extension_status(
+        {"XDG_CURRENT_DESKTOP": "ubuntu:GNOME"},
+        lambda: ["ubuntu-appindicators@ubuntu.com"],
+    ) == ("OK", "ubuntu-appindicators@ubuntu.com")
+
+
+def test_gnome_tray_extension_status_warns_when_no_appindicator_enabled() -> None:
+    level, message = doctor_module.gnome_tray_extension_status(
+        {"XDG_CURRENT_DESKTOP": "GNOME"},
+        lambda: ["clipboard-indicator@tudmotu.com"],
+    )
+
+    assert level == "WARN"
+    assert "gnome-shell-extension-appindicator" in message
+
+
+def test_gnome_tray_extension_status_does_not_apply_off_gnome() -> None:
+    # KDE has a real tray, so the check must stay silent rather than warn.
+    assert doctor_module.gnome_tray_extension_status({"XDG_CURRENT_DESKTOP": "KDE"}, lambda: []) is None
+    assert doctor_module.gnome_tray_extension_status({}, lambda: []) is None
+
+
+def test_doctor_warns_when_gnome_lacks_a_tray_extension(tmp_path) -> None:
+    report = doctor_module.doctor_report(
+        {"XDG_CURRENT_DESKTOP": "GNOME", "XDG_STATE_HOME": str(tmp_path)},
+        command_sender=lambda *a, **k: None,
+        process_running=lambda: False,
+        which=lambda name: None,
+        uinput_checker=lambda: ("OK", "/dev/uinput writable"),
+        tray_checker=lambda: "no",
+        icon_resolver=lambda theme: "generated pixmap",
+        gnome_extension_checker=lambda values: ("WARN", "none enabled; " + doctor_module.APPINDICATOR_HINT),
+    )
+
+    assert any(line.startswith("WARN gnome-tray-extension: none enabled;") for line in report)
+    assert f"WARN setup: {doctor_module.APPINDICATOR_HINT}" in report
+
+
+def test_doctor_omits_gnome_tray_extension_line_off_gnome(tmp_path) -> None:
+    report = doctor_module.doctor_report(
+        {"XDG_CURRENT_DESKTOP": "KDE", "XDG_STATE_HOME": str(tmp_path)},
+        command_sender=lambda *a, **k: None,
+        process_running=lambda: False,
+        which=lambda name: None,
+        uinput_checker=lambda: ("OK", "/dev/uinput writable"),
+        tray_checker=lambda: "yes",
+        icon_resolver=lambda theme: "generated pixmap",
+        gnome_extension_checker=lambda values: None,
+    )
+
+    assert not any("gnome-tray-extension" in line for line in report)

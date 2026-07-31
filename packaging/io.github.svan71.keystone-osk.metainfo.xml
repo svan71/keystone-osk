@@ -67,11 +67,11 @@
 
   <screenshots>
     <screenshot type="default" xml:lang="en">
-      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.0/previews/keystone-osk-app-preview.png</image>
+      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.1/previews/keystone-osk-app-preview.png</image>
       <caption>The full keyboard layout in a dark theme</caption>
     </screenshot>
     <screenshot xml:lang="en">
-      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.0/previews/keystone-osk-small-preview.png</image>
+      <image>https://raw.githubusercontent.com/svan71/keystone-osk/v0.9.1/previews/keystone-osk-small-preview.png</image>
       <caption>The compact layout, sized for a corner of the screen</caption>
     </screenshot>
   </screenshots>
@@ -84,6 +84,15 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="0.9.1" date="2026-07-31" type="development">
+      <description>
+        <p>
+          Keystone now detects when GNOME has no AppIndicator extension enabled,
+          which is what prevents the tray icon from appearing in the top bar, and
+          says so in its diagnostic report.
+        </p>
+      </description>
+    </release>
     <release version="0.9.0" date="2026-07-31" type="development">
       <description>
         <p>

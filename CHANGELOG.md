@@ -5,6 +5,22 @@ All notable changes to Keystone are recorded here. Versions follow
 development: defaults, settings, and on-disk state formats may still change
 between releases.
 
+## [0.9.1] - 2026-07-31
+
+### Added
+
+- `--doctor` now reports `gnome-tray-extension`, and warns when running on
+  GNOME with no AppIndicator/KStatusNotifierItem extension enabled. GNOME has
+  no built-in system tray, so without one of those extensions the tray icon
+  never reaches the top bar — previously Keystone gave no indication why.
+- The Arch package lists `gnome-shell-extension-appindicator` as an optional
+  dependency for the same reason.
+
+### Documentation
+
+- Both READMEs now state the GNOME extension requirement, in the requirements
+  section and under "Tray icon missing".
+
 ## [0.9.0] - 2026-07-31
 
 First public beta.
@@ -41,4 +57,5 @@ First public beta.
 - Qt runs on the `xcb` platform by default, including on Wayland sessions, where
   Keystone runs through XWayland.
 
+[0.9.1]: https://github.com/svan71/keystone-osk/releases/tag/v0.9.1
 [0.9.0]: https://github.com/svan71/keystone-osk/releases/tag/v0.9.0

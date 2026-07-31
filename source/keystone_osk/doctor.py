@@ -74,6 +74,47 @@ def uinput_status(path: Path = Path("/dev/uinput"), access: Callable[[str | Path
     return "OK", f"{path} writable"
 
 
+# GNOME dropped the legacy system tray, so a Qt QSystemTrayIcon only reaches the
+# top bar when an AppIndicator/KStatusNotifierItem extension is enabled. Several
+# forks ship under different UUIDs (rgcjonas', Ubuntu's), so match on the UUID
+# substring rather than pinning one of them.
+APPINDICATOR_HINT = (
+    "enable an AppIndicator/KStatusNotifierItem GNOME extension "
+    "(Arch: extra/gnome-shell-extension-appindicator)"
+)
+
+
+def is_gnome_session(values: Mapping[str, str]) -> bool:
+    return "gnome" in (values.get("XDG_CURRENT_DESKTOP") or "").lower()
+
+
+def enabled_gnome_extensions() -> list[str]:
+    try:
+        result = subprocess.run(
+            ["gnome-extensions", "list", "--enabled"],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=3,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return []
+    return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+
+def gnome_tray_extension_status(
+    values: Mapping[str, str],
+    lister: Callable[[], list[str]] = enabled_gnome_extensions,
+) -> tuple[str, str] | None:
+    """Return None off GNOME, where this check does not apply."""
+    if not is_gnome_session(values):
+        return None
+    matches = [uuid for uuid in lister() if "appindicator" in uuid.lower()]
+    if matches:
+        return "OK", ", ".join(matches)
+    return "WARN", f"none enabled; {APPINDICATOR_HINT}"
+
+
 def tray_available_status() -> str:
     try:
         from PySide6.QtWidgets import QApplication, QSystemTrayIcon
@@ -139,6 +180,7 @@ def doctor_report(
     tray_checker: Callable[[], str] = tray_available_status,
     icon_resolver: Callable[[str], str] = resolved_tray_icon,
     color_scheme_detector: Callable[[], str | None] = detect_color_scheme,
+    gnome_extension_checker: Callable[[Mapping[str, str]], tuple[str, str] | None] = gnome_tray_extension_status,
 ) -> list[str]:
     values = os.environ if environ is None else environ
     lines = [f"{APP_NAME} doctor"]
@@ -185,6 +227,9 @@ def doctor_report(
             lines.append(f"WARN theme-pack: {fields[0]} {status}")
     lines.append(f"INFO numpad-mode: {load_numpad_output_mode(state_path)}")
     lines.append(f"INFO tray-available: {tray_checker()}")
+    tray_extension = gnome_extension_checker(values)
+    if tray_extension is not None:
+        lines.append(f"{tray_extension[0]} gnome-tray-extension: {tray_extension[1]}")
     lines.append(f"INFO tray-icon: {icon_resolver(current_theme)}")
     lines.append(f"INFO layout: {load_keyboard_mode(state_path)}")
     response = command_sender("ping", environ=values)
@@ -201,6 +246,8 @@ def doctor_report(
         lines.append("WARN setup: fix /dev/uinput permissions")
     if display_server(values) == "none":
         lines.append("WARN setup: no DISPLAY or WAYLAND_DISPLAY")
+    if tray_extension is not None and tray_extension[0] != "OK":
+        lines.append(f"WARN setup: {APPINDICATOR_HINT}")
     if response != "ok pong":
         lines.append("WARN setup: Keystone control socket is not responding")
     return lines

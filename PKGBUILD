@@ -1,7 +1,7 @@
 # Builds Keystone from this checkout. The AUR package uses its own PKGBUILD
 # that fetches a released tarball instead of building from $startdir.
 pkgname=keystone-osk
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="Practical on-screen keyboard for Linux desktops"
 arch=("any")
@@ -10,7 +10,7 @@ license=("GPL-3.0-or-later")
 # ydotool is invoked as a subprocess by keystone_osk/backend.py, so namcap
 # cannot see it and will report it as possibly unneeded. It is required.
 depends=("python" "pyside6" "ydotool" "hicolor-icon-theme")
-optdepends=()
+optdepends=("gnome-shell-extension-appindicator: top-bar tray icon on GNOME")
 makedepends=("python-build" "python-installer" "python-setuptools" "python-wheel" "desktop-file-utils")
 source=()
 sha256sums=()

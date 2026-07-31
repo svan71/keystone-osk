@@ -22,6 +22,9 @@ keystone-osk --list-themes
 Keystone runs on Qt's `xcb` platform by default, including on Wayland sessions,
 where it runs through XWayland. Set `KEYSTONE_OSK_QT_PLATFORM=wayland` to opt
 into Qt's native Wayland platform instead. GNOME and
-KDE behavior profiles are supported; tray behavior depends on the desktop shell,
+KDE behavior profiles are supported. On GNOME the top-bar tray icon requires an
+AppIndicator/KStatusNotifierItem extension (Arch: `gnome-shell-extension-appindicator`),
+because GNOME has no built-in tray; `--doctor` reports this. Otherwise
+tray behavior depends on the desktop shell,
 and Keystone keeps its restore icon as the fallback when a real tray is
 unavailable.
