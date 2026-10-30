@@ -184,7 +184,7 @@ class KeyboardWindow(KeyboardRenderingMixin, AutocompleteUIMixin, InputUIMixin, 
         self._autocomplete_save_timer.setSingleShot(True)
         self._autocomplete_save_timer.setInterval(1500)
         self._autocomplete_save_timer.timeout.connect(self._flush_autocomplete_save)
-        self._tray_available = QSystemTrayIcon.isSystemTrayAvailable()
+        self._tray_available = False  # System tray disabled in this fork
         self._panel_button = PanelRestoreButton(self._restore_from_panel, theme=self._theme_name)
         self._desktop_icon = DesktopRestoreIcon(
             self._restore_from_panel,
@@ -565,7 +565,7 @@ def fit_and_position_window(window: QWidget, *, restore_saved_position: bool = F
 
 ALREADY_RUNNING_MESSAGE = (
     "Keystone is already running.\n"
-    "Use keystone-osk --show, --hide, --toggle, --quit, --theme, --mode, --numpad-output, or --sticky."
+    "Use keystone-osk --show, --hide, --toggle, --quit, --theme, --mode, or --numpad-output."
 )
 
 
@@ -613,8 +613,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--numpad-output", choices=("reliable", "true-keypad"))
     parser.add_argument("--debug-keys", action="store_true")
     parser.add_argument("--start-hidden", action="store_true")
-    parser.add_argument("--sticky", action="store_true",
-                        help="Make the keyboard window appear on all workspaces")
+
     parser.add_argument("--show", action="store_true")
     parser.add_argument("--hide", action="store_true")
     parser.add_argument("--toggle", action="store_true")

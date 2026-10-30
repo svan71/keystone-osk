@@ -19,7 +19,7 @@ _DESKTOP_TEMPLATE = """\
 [Desktop Entry]
 Type=Application
 Name=Keystone OSK
-Comment=On-screen keyboard
+Comment=On-screen keyboard (sticky on all workspaces)
 Exec={exec_line}
 Icon=keystone
 X-GNOME-Autostart-enabled=true
@@ -65,7 +65,7 @@ def enable(environ: Mapping[str, str]) -> None:
     """
     dest = autostart_path(environ)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    exec_line = f"{launcher_command()} --start-hidden"
+    exec_line = f"{launcher_command()} --show"
     content = _DESKTOP_TEMPLATE.format(exec_line=exec_line)
     tmp = dest.with_suffix(".desktop.tmp")
     tmp.write_text(content, encoding="utf-8")
