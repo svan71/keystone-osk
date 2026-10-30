@@ -141,3 +141,79 @@ def should_use_manual_resize(edges, is_kde: bool | None = None) -> bool:
 
 def keyboard_resize_margin(is_kde: bool | None = None) -> int:
     return 14 if (is_kde_session() if is_kde is None else is_kde) else 28
+
+
+def set_window_sticky(window_handle) -> None:
+    """Set the window to be visible on all workspaces by applying
+    _NET_WM_STATE_STICKY via X11 properties. This works under XWayland
+    where xprop/x11 properties are still respected."""
+    try:
+        from PySide6.QtGui import QGuiApplication, QNativeInterface
+        from ctypes import cdll, c_void_p, c_uint
+        import ctypes.util
+        import struct
+
+        app = QGuiApplication.instance()
+        if app is None:
+            return
+        # Try to get X11 native interface
+        ni = app.nativeInterface()
+        if not isinstance(ni, QNativeInterface.QX11Application):
+            # Not running under xcb, skip
+            return
+
+        display_val = ni.display()
+        if not display_val:
+            return
+
+        # display is returned as an integer (the X11 Display* pointer)
+        xlib = cdll.LoadLibrary(ctypes.util.find_library("X11"))
+        display = c_void_p(display_val)
+        if not display:
+            return
+
+        window_id = int(window_handle.winId())
+
+        def get_atom(name):
+            return xlib.XInternAtom(
+                display,
+                name.encode('utf-8'),
+                False,
+            )
+
+        net_wm_state = get_atom("_NET_WM_STATE")
+        sticky = get_atom("_NET_WM_STATE_STICKY")
+        atom_type = get_atom("ATOM")
+
+        # Use XChangeProperty to set _NET_WM_STATE with _NET_WM_STATE_STICKY
+        data = struct.pack("=I", sticky)
+        xlib.XChangeProperty(
+            display,
+            c_uint(window_id),
+            c_uint(net_wm_state),
+            c_uint(atom_type),
+            32,  # format: 32 bits per item
+            0,   # mode: PropModeReplace
+            data,
+            1,
+        )
+        xlib.XFlush(display)
+        
+        # Also set _NET_WM_DESKTOP to all desktops (0xFFFFFFFF = -1)
+        net_wm_desktop = get_atom("_NET_WM_DESKTOP")
+        card_type = get_atom("CARDINAL")
+        data_desktop = struct.pack("=I", 0xFFFFFFFF)  # 4294967295 = all desktops
+        xlib.XChangeProperty(
+            display,
+            c_uint(window_id),
+            c_uint(net_wm_desktop),
+            c_uint(card_type),
+            32,
+            0,
+            data_desktop,
+            1,
+        )
+        xlib.XFlush(display)
+    except Exception as e:
+        import logging
+        logging.getLogger("keystone-osk").warning(f"Failed to set sticky: {e}")

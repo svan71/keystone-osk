@@ -26,6 +26,7 @@ from keystone_osk.menu_ui import MenuUIMixin
 from keystone_osk.window_ui import WindowInteractionMixin
 from keystone_osk.layout import build_linux_layout
 from keystone_osk.platform import (
+    set_window_sticky,
     detect_color_scheme,
     has_display_environment,
     is_kde_session,
@@ -392,6 +393,7 @@ class KeyboardWindow(KeyboardRenderingMixin, AutocompleteUIMixin, InputUIMixin, 
         self._show_top_restore_fallback_if_needed()
         self._desktop_icon.setGeometry(load_restore_icon_geometry())
         self._desktop_icon.show()
+        QTimer.singleShot(0, lambda: set_window_sticky(self._desktop_icon.windowHandle()))
         self._desktop_icon.raise_()
 
     def _hide_keyboard_keep_top_icon(self) -> None:
@@ -424,6 +426,7 @@ class KeyboardWindow(KeyboardRenderingMixin, AutocompleteUIMixin, InputUIMixin, 
             clamped = clamp_window_position(self._restore_geometry.topLeft(), size)
             self.setGeometry(QRect(clamped, size))
         self.show()
+        QTimer.singleShot(0, lambda: set_window_sticky(self.windowHandle()))
         self.raise_()
         self._sync_modifier_cancel_overlay()
 
@@ -562,7 +565,7 @@ def fit_and_position_window(window: QWidget, *, restore_saved_position: bool = F
 
 ALREADY_RUNNING_MESSAGE = (
     "Keystone is already running.\n"
-    "Use keystone-osk --show, --hide, --toggle, --quit, --theme, --mode, or --numpad-output."
+    "Use keystone-osk --show, --hide, --toggle, --quit, --theme, --mode, --numpad-output, or --sticky."
 )
 
 
@@ -610,6 +613,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--numpad-output", choices=("reliable", "true-keypad"))
     parser.add_argument("--debug-keys", action="store_true")
     parser.add_argument("--start-hidden", action="store_true")
+    parser.add_argument("--sticky", action="store_true",
+                        help="Make the keyboard window appear on all workspaces")
     parser.add_argument("--show", action="store_true")
     parser.add_argument("--hide", action="store_true")
     parser.add_argument("--toggle", action="store_true")
@@ -715,6 +720,7 @@ def main(argv: list[str] | None = None) -> int:
         window._hide_keyboard_keep_top_icon()
     else:
         window.show()
+        QTimer.singleShot(0, lambda: set_window_sticky(window.windowHandle()))
         QTimer.singleShot(0, lambda: fit_and_position_window(window, restore_saved_position=not explicit_size))
     return app.exec()
 
