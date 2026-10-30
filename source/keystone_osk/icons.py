@@ -151,3 +151,9 @@ def show_top_restore_fallback_if_needed(panel_button, tray_available: bool) -> N
     panel_button.move_to_top_bar()
     panel_button.show()
     panel_button.raise_()
+    # Keep the floating restore button visible on every workspace.
+    from PySide6.QtCore import QTimer
+
+    from keystone_osk.platform import set_window_sticky
+
+    QTimer.singleShot(0, lambda: set_window_sticky(panel_button.windowHandle()))

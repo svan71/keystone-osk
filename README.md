@@ -24,6 +24,9 @@ navigation cluster and numpad — that you can actually use on a modern desktop.
   at login.
 - **Single-instance control** — show/hide/toggle from the command line or a
   keybinding.
+- **Sticky windows (this fork)** — keyboard and restore icon can appear on all
+  workspaces simultaneously. See [FEATURES_STICKY.md](FEATURES_STICKY.md) for
+  details.
 
 ## Requirements
 

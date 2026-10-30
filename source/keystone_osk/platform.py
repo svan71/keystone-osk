@@ -141,3 +141,42 @@ def should_use_manual_resize(edges, is_kde: bool | None = None) -> bool:
 
 def keyboard_resize_margin(is_kde: bool | None = None) -> int:
     return 14 if (is_kde_session() if is_kde is None else is_kde) else 28
+
+
+def set_window_sticky(window_handle) -> None:
+    """Set the window to be visible on all workspaces using xdotool."""
+    try:
+        import subprocess
+        import shutil
+        
+        window_id = int(window_handle.winId())
+        win_id_hex = hex(window_id)
+        
+        # The most reliable way under GNOME Wayland + XWayland:
+        # 1. Use xdotool to set the window sticky
+        if shutil.which("xdotool"):
+            # First try to set sticky directly
+            subprocess.run(
+                ["xdotool", "set_window", "--sticky", win_id_hex],
+                capture_output=True, timeout=2,
+            )
+            # Also set desktop to all
+            subprocess.run(
+                ["xdotool", "set_desktop_for_window", win_id_hex, "-1"],
+                capture_output=True, timeout=2,
+            )
+        else:
+            # Fallback: use xprop
+            subprocess.run(
+                ["xprop", "-f", "_NET_WM_STATE", "32a", "-set",
+                 "_NET_WM_STATE", "_NET_WM_STATE_STICKY", "-id", win_id_hex],
+                capture_output=True, timeout=2,
+            )
+            subprocess.run(
+                ["xprop", "-f", "_NET_WM_DESKTOP", "32a", "-set",
+                 "_NET_WM_DESKTOP", "4294967295", "-id", win_id_hex],
+                capture_output=True, timeout=2,
+            )
+    except Exception as e:
+        import logging
+        logging.getLogger("keystone-osk").warning(f"Failed to set sticky: {e}")
