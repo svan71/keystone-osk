@@ -41,10 +41,14 @@ def launcher_command() -> str:
     """Return the best available launcher path for keystone-osk.
 
     Preference order:
-    1. ~/.local/bin/keystone-osk if executable
-    2. shutil.which("keystone-osk")
-    3. <sys.executable> -m keystone_osk
+    1. ~/.local/bin/keystone-osk-sticky if executable (includes sticky window support)
+    2. ~/.local/bin/keystone-osk if executable
+    3. shutil.which("keystone-osk")
+    4. <sys.executable> -m keystone_osk
     """
+    local_bin_sticky = Path.home() / ".local" / "bin" / "keystone-osk-sticky"
+    if local_bin_sticky.is_file() and local_bin_sticky.stat().st_mode & 0o111:
+        return shlex.quote(str(local_bin_sticky))
     local_bin = Path.home() / ".local" / "bin" / "keystone-osk"
     if local_bin.is_file() and local_bin.stat().st_mode & 0o111:
         return shlex.quote(str(local_bin))
